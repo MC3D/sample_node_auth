@@ -27,6 +27,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(session({secret: 'joey', resave: false, saveUnitialized: true})); // see comments below
 app.use((req, res, next) => {
   var pathname = parseurl(req).pathname;
+  console.log('parseurl', parseurl(req));
   console.log('pathname', pathname);
   !req.session.user && pathname != '/login'
     ? res.redirect('login')
@@ -55,7 +56,7 @@ app.post('/login', function(req, res) {
 
   req.session.user
     ? res.redirect('/')
-    : res.redirect('login');
+    : undefined;
 });
 
 app.listen(3000);
